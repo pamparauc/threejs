@@ -12,25 +12,28 @@ const canvas = document.querySelector('canvas.webgl')
 // Scene
 const scene = new THREE.Scene()
 
-// Objects
-const geometry = new THREE.TorusGeometry( .7, .2, 16, 100 );
 
-// Materials
-
-const material = new THREE.MeshBasicMaterial()
-material.color = new THREE.Color(0xff0000)
-
-// Mesh
-const sphere = new THREE.Mesh(geometry,material)
-scene.add(sphere)
-
-// Lights
 
 const pointLight = new THREE.PointLight(0xffffff, 0.1)
 pointLight.position.x = 2
 pointLight.position.y = 3
 pointLight.position.z = 4
 scene.add(pointLight)
+
+const geometry1 = new THREE.PlaneGeometry( 2.5, 0.01 );
+const material1 = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
+const plane1 = new THREE.Mesh( geometry1, material1 );
+scene.add( plane1 );
+plane1.position.x = 1.2;
+plane1.position.y = -0.1;
+
+const geometry2 = new THREE.PlaneGeometry( 2.5, 0.01 );
+const material2 = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
+const plane2 = new THREE.Mesh( geometry1, material1 );
+scene.add( plane2 );
+plane2.position.x = -1.9;
+plane2.position.y = 1;
+
 
 /**
  * Sizes
@@ -90,7 +93,8 @@ const tick = () =>
     const elapsedTime = clock.getElapsedTime()
 
     // Update objects
-    sphere.rotation.y = .5 * elapsedTime
+    plane1.rotation.z = .05 * elapsedTime
+    plane2.rotation.z = -.054 * elapsedTime
 
     // Update Orbital Controls
     // controls.update()
