@@ -185,87 +185,7 @@ function mark_focus_on_red(){
     }
 }
 setInterval(mark_focus_on_red, 2);
-function focus_on_1(){
-   // res = "poti comuta pe axa ";
-    if (plane1.userData.obb.intersectsOBB(plane2.userData.obb)){ // 1-2
-        res += " 2";
-    }
-    if (plane1.userData.obb.intersectsOBB(plane3.userData.obb)){ // 1-3
-        res += " 3";
-    }
-    if (plane1.userData.obb.intersectsOBB(plane4.userData.obb)){ // 1-4
-        res += " 4";
-    }
-    if (plane1.userData.obb.intersectsOBB(plane5.userData.obb)){ // 1-5
-        res += " 5.";    
-    }
-    return res;
-}
 
-function focus_on_2(){
-    //res = "poti comuta pe axa ";
-    if (plane2.userData.obb.intersectsOBB(plane1.userData.obb)){ // 2-1
-        res += " 1";
-    }
-    if (plane2.userData.obb.intersectsOBB(plane3.userData.obb)){ // 2-3
-        res += " 3";
-    }
-    if (plane2.userData.obb.intersectsOBB(plane4.userData.obb)){ // 2-4
-        res += " 4";
-    }
-    if (plane2.userData.obb.intersectsOBB(plane5.userData.obb)){ // 2-5
-        res += " 5.";    
-    }
-    return res;
-}
-function focus_on_3(){
-    //res = "poti comuta pe axa ";
-    if (plane3.userData.obb.intersectsOBB(plane1.userData.obb)){ // 3-1
-        res += " 1";
-    }
-    if (plane3.userData.obb.intersectsOBB(plane2.userData.obb)){ // 3-2
-        res += " 2";
-    }
-    if (plane3.userData.obb.intersectsOBB(plane4.userData.obb)){ // 3-4
-        res += " 4";
-    }
-    if (plane3.userData.obb.intersectsOBB(plane5.userData.obb)){ // 3-5
-        res += " 5.";    
-    }
-    return res;
-}
-function focus_on_4(){
-    //res = "poti comuta pe axa ";
-    if (plane4.userData.obb.intersectsOBB(plane1.userData.obb)){ // 4-1
-        res += " 1";
-    }
-    if (plane4.userData.obb.intersectsOBB(plane2.userData.obb)){ // 4-2
-        res += " 2";
-    }
-    if (plane4.userData.obb.intersectsOBB(plane3.userData.obb)){ // 4-3
-        res += " 3";
-    }
-    if (plane4.userData.obb.intersectsOBB(plane5.userData.obb)){ // 3-5
-        res += " 5.";    
-    }
-    return res;
-}
-function focus_on_5(){
-    //res = "poti comuta pe axa ";
-    if (plane5.userData.obb.intersectsOBB(plane1.userData.obb)){ // 5-1
-        res += " 1";
-    }
-    if (plane5.userData.obb.intersectsOBB(plane2.userData.obb)){ // 5-2
-        res += " 2";
-    }
-    if (plane5.userData.obb.intersectsOBB(plane3.userData.obb)){ // 5-3
-        res += " 3";
-    }
-    if (plane5.userData.obb.intersectsOBB(plane5.userData.obb)){ // 5-4
-        res += " 4.";    
-    }
-    return res;
-}
 function check_intersections(){
     res = "";
     plane1.userData.obb.copy(plane1.geometry.userData.obb);
@@ -291,7 +211,7 @@ function check_intersections(){
             break;
         case 4:
            res = focus_on_4();
-            break;
+            reak;
         case 5:
             res = focus_on_5();
             break;
@@ -302,7 +222,87 @@ function check_intersections(){
     return res;
 
 }
-
+function focus_on_1(){
+    // res = "poti comuta pe axa ";
+     if (plane1.userData.obb.intersectsOBB(plane2.userData.obb)){ // 1-2
+         res += " 2";
+     }
+     if (plane1.userData.obb.intersectsOBB(plane3.userData.obb)){ // 1-3
+         res += " 3";
+     }
+     if (plane1.userData.obb.intersectsOBB(plane4.userData.obb)){ // 1-4
+         res += " 4";
+     }
+     if (plane1.userData.obb.intersectsOBB(plane5.userData.obb)){ // 1-5
+         res += " 5.";    
+     }
+     return res;
+ }
+ 
+ function focus_on_2(){
+     //res = "poti comuta pe axa ";
+     if (plane2.userData.obb.intersectsOBB(plane1.userData.obb)){ // 2-1
+         res += " 1";
+     }
+     if (plane2.userData.obb.intersectsOBB(plane3.userData.obb)){ // 2-3
+         res += " 3";
+     }
+     if (plane2.userData.obb.intersectsOBB(plane4.userData.obb)){ // 2-4
+         res += " 4";
+     }
+     if (plane2.userData.obb.intersectsOBB(plane5.userData.obb)){ // 2-5
+         res += " 5.";    
+     }
+     return res;
+ }
+ function focus_on_3(){
+     //res = "poti comuta pe axa ";
+     if (plane3.userData.obb.intersectsOBB(plane1.userData.obb)){ // 3-1
+         res += " 1";
+     }
+     if (plane3.userData.obb.intersectsOBB(plane2.userData.obb)){ // 3-2
+         res += " 2";
+     }
+     if (plane3.userData.obb.intersectsOBB(plane4.userData.obb)){ // 3-4
+         res += " 4";
+     }
+     if (plane3.userData.obb.intersectsOBB(plane5.userData.obb)){ // 3-5
+         res += " 5.";    
+     }
+     return res;
+ }
+ function focus_on_4(){
+     //res = "poti comuta pe axa ";
+     if (plane4.userData.obb.intersectsOBB(plane1.userData.obb)){ // 4-1
+         res += " 1";
+     }
+     if (plane4.userData.obb.intersectsOBB(plane2.userData.obb)){ // 4-2
+         res += " 2";
+     }
+     if (plane4.userData.obb.intersectsOBB(plane3.userData.obb)){ // 4-3
+         res += " 3";
+     }
+     if (plane4.userData.obb.intersectsOBB(plane5.userData.obb)){ // 3-5
+         res += " 5.";    
+     }
+     return res;
+ }
+ function focus_on_5(){
+     //res = "poti comuta pe axa ";
+     if (plane5.userData.obb.intersectsOBB(plane1.userData.obb)){ // 5-1
+         res += " 1";
+     }
+     if (plane5.userData.obb.intersectsOBB(plane2.userData.obb)){ // 5-2
+         res += " 2";
+     }
+     if (plane5.userData.obb.intersectsOBB(plane3.userData.obb)){ // 5-3
+         res += " 3";
+     }
+     if (plane5.userData.obb.intersectsOBB(plane5.userData.obb)){ // 5-4
+         res += " 4.";    
+     }
+     return res;
+ }
 const tick = () =>
 {
 
@@ -342,7 +342,9 @@ document.onkeydown = function(e) {
     if (e.keyCode == 40){ // down arrow
 		interest_plane.position.y -=0.01;
 	}
-    console.log(e.keyCode);
+
+    // these will be eliminated, because the focus will be received from
+    // websockets, based on the text sent to it;
     if (e.keyCode == 49){ // tasta 1
         focus = 1;
     }
