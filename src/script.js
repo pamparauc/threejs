@@ -17,6 +17,7 @@ const scene = new THREE.Scene()
 //scene.add(new THREE.AxesHelper(5));
 
 let focus = 2;
+let res = "";
 
 const pointLight = new THREE.PointLight(0xffffff, 0.1)
 pointLight.position.x = 2
@@ -135,25 +136,51 @@ controls.enableDamping = true;
 
 const clock = new THREE.Clock()
 
-
-const tick = () =>
-{
-
-    const elapsedTime = clock.getElapsedTime()
-
-    // Update objects
-    plane1.rotation.z = .021 * elapsedTime
-    plane2.rotation.z = .04 * elapsedTime
-    plane3.rotation.z = .031 * elapsedTime
-    plane4.rotation.z = .034 * elapsedTime
-    plane5.rotation.z = .039 * elapsedTime
-
-    // Render
-    renderer.render(scene, camera)
-
-    // Call tick again on the next frame
-    window.requestAnimationFrame(tick)
-	plane1.userData.obb.copy(plane1.geometry.userData.obb);
+function mark_focus_on_red(){
+    switch(focus){
+        case 1:
+            plane1.material.color.set(0xff0000); // red
+            plane2.material.color.set(0xffff00);
+            plane3.material.color.set(0xffff00);
+            plane4.material.color.set(0xffff00);
+            plane5.material.color.set(0xffff00);
+            break;
+        case 2:
+            plane1.material.color.set(0xffff00); 
+            plane2.material.color.set(0xff0000);// red
+            plane3.material.color.set(0xffff00);
+            plane4.material.color.set(0xffff00);
+            plane5.material.color.set(0xffff00);
+            break;
+        case 3:
+            plane1.material.color.set(0xffff00); 
+            plane2.material.color.set(0xffff00);
+            plane3.material.color.set(0xff0000);// red
+            plane4.material.color.set(0xffff00);
+            plane5.material.color.set(0xffff00);
+            break;
+        case 4:
+            plane1.material.color.set(0xffff00); 
+            plane2.material.color.set(0xffff00);
+            plane3.material.color.set(0xffff00);
+            plane4.material.color.set(0xff0000);// red
+            plane5.material.color.set(0xffff00);
+            break;
+        case 5:
+            plane1.material.color.set(0xffff00); 
+            plane2.material.color.set(0xffff00);
+            plane3.material.color.set(0xffff00);
+            plane4.material.color.set(0xffff00);
+            plane5.material.color.set(0xff0000);// red
+            break;
+        default:
+            break;
+    }
+}
+setInterval(mark_focus_on_red, 2);
+function check_intersections(){
+    res = "";
+    plane1.userData.obb.copy(plane1.geometry.userData.obb);
     plane2.userData.obb.copy(plane2.geometry.userData.obb);
     plane3.userData.obb.copy(plane3.geometry.userData.obb);
     plane4.userData.obb.copy(plane4.geometry.userData.obb);
@@ -163,35 +190,157 @@ const tick = () =>
     plane3.userData.obb.applyMatrix4(plane3.matrixWorld);
     plane4.userData.obb.applyMatrix4(plane4.matrixWorld);
     plane5.userData.obb.applyMatrix4(plane5.matrixWorld);
-    if (plane1.userData.obb.intersectsOBB(plane2.userData.obb)) { // plane 1 era rosu
-        var res = "1 intersectat cu 2";
-        if (plane2.userData.obb.intersectsOBB(plane3.userData.obb))
-        {
-            res += " SI 2 intersectat cu 3";
-            if (plane3.userData.obb.intersectsOBB(plane4.userData.obb))
-            {
-                res += " SI 3 intersectat cu 4";
-                if (plane4.userData.obb.intersectsOBB(plane5.userData.obb))
-                {
-                    res += " SI 3 intersectat cu 4";
+    switch(focus)
+    {
+        case 1:
+            if (plane1.userData.obb.intersectsOBB(plane2.userData.obb)){
+                res = "Esti pe axa 1; poti comuta pe axa 2";
+                focus++;
+                if (plane2.userData.obb.intersectsOBB(plane3.userData.obb)) {
+                    res += " sau 3";
+                    if (plane3.userData.obb.intersectsOBB(plane4.userData.obb)){
+                        res += " sau 4";
+                        if (plane4.userData.obb.intersectsOBB(plane5.userData.obb)){
+                            res += " sau 5";
+                            
+                        }
+                    }
                 }
             }
-        }
-        console.log(res);
+            break;
+        case 2:
+            if (plane1.userData.obb.intersectsOBB(plane2.userData.obb)){
+                res = "Esti pe axa 2; poti comuta pe axa 1";
+                if (plane2.userData.obb.intersectsOBB(plane3.userData.obb)){
+                    res += " sau 3";
+                    if (plane3.userData.obb.intersectsOBB(plane4.userData.obb)){
+                        res += " sau 4";
+                        if (plane4.userData.obb.intersectsOBB(plane5.userData.obb)){
+                            res += " sau 5";
+                            
+                            break;
+                        }
+                    }
+                }
+                focus++;
+            }
+            else{
+                if (plane2.userData.obb.intersectsOBB(plane3.userData.obb)){
+                    res += " Esti pe axa 2; poti comuta pe axa 3";
+                    if (plane3.userData.obb.intersectsOBB(plane4.userData.obb)){
+                        res += " sau 4";
+                        if (plane4.userData.obb.intersectsOBB(plane5.userData.obb)){
+                            res += " sau 5";
+                        }
+                    }
+                    focus++;
+                }
+            }
+            break;
+        case 3:
+            if (plane3.userData.obb.intersectsOBB(plane2.userData.obb)){
+                res = "Esti pe axa 3; poti comuta pe axa 2";
+                focus++;
+                if (plane2.userData.obb.intersectsOBB(plane1.userData.obb)){
+                    res += " sau 1";
+                    if (plane3.userData.obb.intersectsOBB(plane4.userData.obb)){
+                        res += " sau 4";
+                        if (plane4.userData.obb.intersectsOBB(plane5.userData.obb)){
+                            res += " sau 5";
+                            
+                            break;
+                        }
+                    }
+                }
+            }
+            else{
+                if (plane3.userData.obb.intersectsOBB(plane4.userData.obb)){
+                    res += "Esti pe axa 3; poti comuta pe axa 4";
+                    if (plane4.userData.obb.intersectsOBB(plane5.userData.obb)){
+                        res += " sau 5";
+                                            }
+                    focus++;
+                }
+            }
+            break;
+        case 4:
+            if (plane4.userData.obb.intersectsOBB(plane5.userData.obb)){
+                res = "Esti pe axa 4; poti comuta pe axa 5";
+                if (plane4.userData.obb.intersectsOBB(plane3.userData.obb)){
+                    res += " sau 3";
+                    if (plane3.userData.obb.intersectsOBB(plane2.userData.obb)){
+                        res += " sau 2";
+                        if (plane2.userData.obb.intersectsOBB(plane1.userData.obb)){
+                            res += " sau 1";
+                            
+                            break;
+                        }
+                    }
+                }
+                focus++;
+            }
+            else{
+                if (plane4.userData.obb.intersectsOBB(plane3.userData.obb)){
+                    res += "Esti pe axa 4; poti comuta pe axa 3";
+                    if (plane3.userData.obb.intersectsOBB(plane2.userData.obb)){
+                        res += " sau 2";
+                        if (plane2.userData.obb.intersectsOBB(plane1.userData.obb)){
+                            res += " sau 1";
+                            
+                        }
+                    }
+                    focus++;
+                }
+            }
+            break;
+        case 5:
+            if (plane5.userData.obb.intersectsOBB(plane4.userData.obb)){
+                res += "Esti pe axa 5; poti comuta pe axa 4";
+                if (plane4.userData.obb.intersectsOBB(plane3.userData.obb)){
+                    res += " sau 3";
+                    if (plane3.userData.obb.intersectsOBB(plane2.userData.obb)){
+                        res += " sau 2";
+                        if (plane2.userData.obb.intersectsOBB(plane1.userData.obb)){
+                            res += " sau 1";
+                            focus++;
+                        }
+                    }
+                }
+                focus=1;
+            }
+            break;
+        default:
+            break;
     }
-    if (plane2.userData.obb.intersectsOBB(plane3.userData.obb)) { // plane 1 era rosu
-        console.log("2 intersectat cu 3");
-    }
-    if (plane3.userData.obb.intersectsOBB(plane4.userData.obb)) { // plane 1 era rosu
-        console.log("3 intersectat cu 4");
-    }
-    if (plane4.userData.obb.intersectsOBB(plane5.userData.obb)) { // plane 1 era rosu
-        console.log("4 intersectat cu 5");
-    }
-    if (plane3.userData.obb.intersectsOBB(plane5.userData.obb)) { // plane 1 era rosu
-        console.log("3 intersectat cu 5");
-    }
+    
+    return res;
 
+}
+
+const tick = () =>
+{
+
+    const elapsedTime = clock.getElapsedTime()
+
+    // Update objects
+    plane1.rotation.z = .21 * elapsedTime
+    plane2.rotation.z = .4 * elapsedTime
+    plane3.rotation.z = .1 * elapsedTime
+    plane4.rotation.z = .34 * elapsedTime
+    plane5.rotation.z = .39 * elapsedTime
+
+    // Render
+    renderer.render(scene, camera)
+
+    // Call tick again on the next frame
+    window.requestAnimationFrame(tick)
+
+    // check intersections
+    res = check_intersections();
+
+    // user hax to choose, but for now, just log it
+    if (res != "")
+        console.log(res);
 }
 tick()
 
