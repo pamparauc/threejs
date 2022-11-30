@@ -186,81 +186,83 @@ function mark_focus_on_red(){
 }
 setInterval(mark_focus_on_red, 2);
 function focus_on_1(){
+   // res = "poti comuta pe axa ";
     if (plane1.userData.obb.intersectsOBB(plane2.userData.obb)){ // 1-2
-        res = "Esti pe axa 1; poti comuta pe axa 2";
-        if (plane2.userData.obb.intersectsOBB(plane3.userData.obb)) { // 1-2-3
-            res += " sau 3";
-            if (plane3.userData.obb.intersectsOBB(plane4.userData.obb)){ // 1-2-3-4
-                res += " sau 4";
-                if (plane4.userData.obb.intersectsOBB(plane5.userData.obb)){ // 1-2-3-4-5
-                    res += " sau 5.";
-                }
-            }
-            if (plane3.userData.obb.intersectsOBB(plane5.userData.obb)){ // 1-2-3-5
-                res += " sau 5;";
-            }
-        }
-        if (plane2.userData.obb.intersectsOBB(plane4.userData.obb)) {  // 1-2-4
-            res += " sau 4";
-            if (plane4.userData.obb.intersectsOBB(plane5.userData.obb)){ // 1-2-4-5
-                res += " sau 5.";
-            }
-        }
-        if (plane2.userData.obb.intersectsOBB(plane5.userData.obb)) { // 1-2-5
-            res += " sau 5.";
-        }
+        res += " 2";
     }
     if (plane1.userData.obb.intersectsOBB(plane3.userData.obb)){ // 1-3
-        res = "; Esti pe axa 1; poti comuta pe axa 3";
-        if (plane3.userData.obb.intersectsOBB(plane4.userData.obb)){ // 1-3-4
-            res += " sau 4";
-            if (plane4.userData.obb.intersectsOBB(plane5.userData.obb)){ // 1-3-4-5
-                res += " sau 5.";
-            }
-        }
+        res += " 3";
     }
     if (plane1.userData.obb.intersectsOBB(plane4.userData.obb)){ // 1-4
-        res = "; Esti pe axa 1; poti comuta pe axa 4";
-        if (plane4.userData.obb.intersectsOBB(plane5.userData.obb)){ // 1-4-5
-            res += " sau 5.";
-        }
+        res += " 4";
     }
     if (plane1.userData.obb.intersectsOBB(plane5.userData.obb)){ // 1-5
-        res = "; Esti pe axa 1; poti comuta pe axa 5.";    
+        res += " 5.";    
     }
     return res;
 }
 
 function focus_on_2(){
+    //res = "poti comuta pe axa ";
     if (plane2.userData.obb.intersectsOBB(plane1.userData.obb)){ // 2-1
-        res = "Esti pe axa 2; poti comuta pe axa 1";
-        if (plane2.userData.obb.intersectsOBB(plane3.userData.obb)){ // 2-1-3
-            res += " sau 3";
-            if (plane3.userData.obb.intersectsOBB(plane4.userData.obb)){ // 2-1-3-4
-                res += " sau 4";
-                if (plane4.userData.obb.intersectsOBB(plane5.userData.obb)){ // 2-1-3-4-5
-                    res += " sau 5.";
-                }
-            }
-        }
+        res += " 1";
     }
     if (plane2.userData.obb.intersectsOBB(plane3.userData.obb)){ // 2-3
-        res += "; Esti pe axa 2; poti comuta pe axa 3";
-        if (plane3.userData.obb.intersectsOBB(plane4.userData.obb)){ // 2-3-4
-            res += " sau 4";
-            if (plane4.userData.obb.intersectsOBB(plane5.userData.obb)){ // 2-3-4-5
-                res += " sau .5";
-            }
-        }
+        res += " 3";
     }
     if (plane2.userData.obb.intersectsOBB(plane4.userData.obb)){ // 2-4
-        res += " Esti pe axa 2; poti comuta pe axa 3";
-        if (plane4.userData.obb.intersectsOBB(plane5.userData.obb)){ // 2-4-5
-            res += " sau 5.";
-        }
+        res += " 4";
     }
     if (plane2.userData.obb.intersectsOBB(plane5.userData.obb)){ // 2-5
-        res += " Esti pe axa 2; poti comuta pe axa 5";
+        res += " 5.";    
+    }
+    return res;
+}
+function focus_on_3(){
+    //res = "poti comuta pe axa ";
+    if (plane3.userData.obb.intersectsOBB(plane1.userData.obb)){ // 3-1
+        res += " 1";
+    }
+    if (plane3.userData.obb.intersectsOBB(plane2.userData.obb)){ // 3-2
+        res += " 2";
+    }
+    if (plane3.userData.obb.intersectsOBB(plane4.userData.obb)){ // 3-4
+        res += " 4";
+    }
+    if (plane3.userData.obb.intersectsOBB(plane5.userData.obb)){ // 3-5
+        res += " 5.";    
+    }
+    return res;
+}
+function focus_on_4(){
+    //res = "poti comuta pe axa ";
+    if (plane4.userData.obb.intersectsOBB(plane1.userData.obb)){ // 4-1
+        res += " 1";
+    }
+    if (plane4.userData.obb.intersectsOBB(plane2.userData.obb)){ // 4-2
+        res += " 2";
+    }
+    if (plane4.userData.obb.intersectsOBB(plane3.userData.obb)){ // 4-3
+        res += " 3";
+    }
+    if (plane4.userData.obb.intersectsOBB(plane5.userData.obb)){ // 3-5
+        res += " 5.";    
+    }
+    return res;
+}
+function focus_on_5(){
+    //res = "poti comuta pe axa ";
+    if (plane5.userData.obb.intersectsOBB(plane1.userData.obb)){ // 5-1
+        res += " 1";
+    }
+    if (plane5.userData.obb.intersectsOBB(plane2.userData.obb)){ // 5-2
+        res += " 2";
+    }
+    if (plane5.userData.obb.intersectsOBB(plane3.userData.obb)){ // 5-3
+        res += " 3";
+    }
+    if (plane5.userData.obb.intersectsOBB(plane5.userData.obb)){ // 5-4
+        res += " 4.";    
     }
     return res;
 }
@@ -285,93 +287,13 @@ function check_intersections(){
             res = focus_on_2();
             break;
         case 3:
-            if (plane3.userData.obb.intersectsOBB(plane1.userData.obb)){ // 3-1
-                res += "Esti pe axa 3; poti comuta pe axa 1";
-                if (plane1.userData.obb.intersectsOBB(plane2.userData.obb)){ // 3-1-2
-                    res += " sau 2";
-                    if (plane2.userData.obb.intersectsOBB(plane4.userData.obb)){ // 3-1-2-4
-                        res += " sau 4";
-                        if (plane4.userData.obb.intersectsOBB(plane5.userData.obb)){// 3-1-2-5
-                            res += " sau 5"; 
-                        }
-                    }
-                }
-                if (plane1.userData.obb.intersectsOBB(plane4.userData.obb)){ // 3-1-4
-                    res += " sau 2";
-                    if (plane4.userData.obb.intersectsOBB(plane2.userData.obb)){ // 3-1-4-2
-                        res += " sau 4";
-                        if (plane4.userData.obb.intersectsOBB(plane5.userData.obb)){// 3-1-4-5
-                            res += " sau 5"; 
-                        }
-                    }
-                }
-            }
-            if (plane3.userData.obb.intersectsOBB(plane2.userData.obb)){ // 3-2
-                res += "; Esti pe axa 3; poti comuta pe axa 2";
-                if (plane2.userData.obb.intersectsOBB(plane1.userData.obb)){ // 3-2-1
-                    res += " sau 1";
-                    if (plane3.userData.obb.intersectsOBB(plane4.userData.obb)){ // 3-2-1-4
-                        res += " sau 4";
-                        if (plane4.userData.obb.intersectsOBB(plane5.userData.obb)){ // 3-2-1-4-5
-                            res += " sau 5.";
-                            break;
-                        }
-                    }
-                }
-            }
-            if (plane3.userData.obb.intersectsOBB(plane4.userData.obb)){ // 3-4
-                res += "Esti pe axa 3; poti comuta pe axa 4";
-                if (plane4.userData.obb.intersectsOBB(plane5.userData.obb)){
-                    res += " sau 5";
-                                        }
-                focus++;
-            }
+            res = focus_on_3();
             break;
         case 4:
-            if (plane4.userData.obb.intersectsOBB(plane5.userData.obb)){
-                res = "Esti pe axa 4; poti comuta pe axa 5";
-                if (plane4.userData.obb.intersectsOBB(plane3.userData.obb)){
-                    res += " sau 3";
-                    if (plane3.userData.obb.intersectsOBB(plane2.userData.obb)){
-                        res += " sau 2";
-                        if (plane2.userData.obb.intersectsOBB(plane1.userData.obb)){
-                            res += " sau 1";
-                            
-                            break;
-                        }
-                    }
-                }
-                focus++;
-            }
-            else{
-                if (plane4.userData.obb.intersectsOBB(plane3.userData.obb)){
-                    res += "Esti pe axa 4; poti comuta pe axa 3";
-                    if (plane3.userData.obb.intersectsOBB(plane2.userData.obb)){
-                        res += " sau 2";
-                        if (plane2.userData.obb.intersectsOBB(plane1.userData.obb)){
-                            res += " sau 1";
-                            
-                        }
-                    }
-                    focus++;
-                }
-            }
+           res = focus_on_4();
             break;
         case 5:
-            if (plane5.userData.obb.intersectsOBB(plane4.userData.obb)){
-                res += "Esti pe axa 5; poti comuta pe axa 4";
-                if (plane4.userData.obb.intersectsOBB(plane3.userData.obb)){
-                    res += " sau 3";
-                    if (plane3.userData.obb.intersectsOBB(plane2.userData.obb)){
-                        res += " sau 2";
-                        if (plane2.userData.obb.intersectsOBB(plane1.userData.obb)){
-                            res += " sau 1";
-                            focus++;
-                        }
-                    }
-                }
-                focus=1;
-            }
+            res = focus_on_5();
             break;
         default:
             break;
@@ -408,19 +330,33 @@ const tick = () =>
 }
 tick()
 document.onkeydown = function(e) {
-	if (e.keyCode == 37){
+	if (e.keyCode == 37){ // left arrow
 		interest_plane.position.x -=0.01;
 	}
-    if (e.keyCode == 39){
+    if (e.keyCode == 39){ // up arrow
 		interest_plane.position.x +=0.01;
 	}
-    if (e.keyCode == 38){
+    if (e.keyCode == 38){ // right arrow
 		interest_plane.position.y +=0.01;
 	}
-    if (e.keyCode == 40){
+    if (e.keyCode == 40){ // down arrow
 		interest_plane.position.y -=0.01;
 	}
-    console.log(e);
-	
+    console.log(e.keyCode);
+    if (e.keyCode == 49){ // tasta 1
+        focus = 1;
+    }
+	if (e.keyCode == 50){ // tasta 2
+       focus = 2;
+    }
+    if (e.keyCode == 51){ // tasta 3
+        focus = 3;
+    }
+    if (e.keyCode == 52){ // tasta 4
+        focus = 4;
+    }
+    if (e.keyCode == 53){ // tasta 5
+        focus = 5;
+    }
 }
 
