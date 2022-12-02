@@ -6,6 +6,82 @@ var OrbitControls_1 = require("three/examples/jsm/controls/OrbitControls");
 var stats_module_1 = require("three/examples/jsm/libs/stats.module");
 var OBB_1 = require("three/examples/jsm/math/OBB");
 
+
+
+
+
+
+
+
+
+
+
+
+
+// Import express, expressWs, and http
+// import express from 'express'
+// import expressWs from 'express-ws'
+// import http from 'http'
+// // Our port
+// let port = 8090;
+
+// // App and server
+// let app = express();
+// let server = http.createServer(app).listen(port);   
+// // Apply expressWs
+// expressWs(app, server);
+// // Get the route / 
+// app.get('/', (req, res) => {
+//     res.status(200).send("Welcome to our app");
+// });
+
+// // This lets the server pick up the '/ws' WebSocket route
+// app.ws('/ws', async function(ws, req) {
+//     // After which we wait for a message and respond to it
+//     ws.on('message', async function(msg) {
+//         // If a message occurs, we'll console log it on the server
+//         console.log(msg);
+//         // Start listening for messages
+//     });
+// });
+
+const WebSocketServer = require('websocket');
+var client = new WebSocket("ws://192.168.10.106:3000");
+
+client.addEventListener("open", () =>{
+    console.log("We are connected");
+    client.send("How are you?");
+  });
+   
+client.addEventListener('message', function (event) {
+      console.log(event.data);
+  });
+
+
+
+// Creating a new websocket server
+// const wss = new WebSocket({
+//     port: 8090,
+//   });
+
+// // Creating connection using websocket
+// wss.on("connection", ws => {
+//     console.log("new client connected");
+//     // sending message
+//     ws.on("message", data => {
+//         console.log(`Client has sent us: ${data}`)
+//     });
+//     // handling what to do when clients disconnects from server
+//     ws.on("close", () => {
+//         console.log("the client has connected");
+//     });
+//     // handling client connection error
+//     ws.onerror = function () {
+//         console.log("Some Error occurred")
+//     }
+// });
+// console.log("The WebSocket server is running on port 8090");
+
 // Debug
 const gui = new dat.GUI()
 
@@ -256,8 +332,10 @@ const tick = () =>
     res = check_intersections();
     
     // user hax to choose, but for now, just log it
-    if (res!== "")
+    if (res!== ""){
         console.log(res);
+        client.send(res);
+    }
 }
 tick()
 document.onkeydown = function(e) {
