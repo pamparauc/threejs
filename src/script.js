@@ -16,8 +16,10 @@ const canvas = document.querySelector('canvas.webgl')
 const scene = new THREE.Scene()
 //scene.add(new THREE.AxesHelper(5));
 
-let focus = 2;
+
+let focus = 1;
 let res = "";
+
 
 const pointLight = new THREE.PointLight(0xffffff, 0.1)
 pointLight.position.x = 2
@@ -184,10 +186,9 @@ function mark_focus_on_red(){
             break;
     }
 }
-setInterval(mark_focus_on_red, 2);
+setInterval(mark_focus_on_red, 1);
 
 function check_intersections(){
-    res = "";
     plane1.userData.obb.copy(plane1.geometry.userData.obb);
     plane2.userData.obb.copy(plane2.geometry.userData.obb);
     plane3.userData.obb.copy(plane3.geometry.userData.obb);
@@ -198,111 +199,30 @@ function check_intersections(){
     plane3.userData.obb.applyMatrix4(plane3.matrixWorld);
     plane4.userData.obb.applyMatrix4(plane4.matrixWorld);
     plane5.userData.obb.applyMatrix4(plane5.matrixWorld);
-    switch(focus)
-    {
-        case 1:
-            res = focus_on_1();
-            break;
-        case 2:
-            res = focus_on_2();
-            break;
-        case 3:
-            res = focus_on_3();
-            break;
-        case 4:
-           res = focus_on_4();
-            reak;
-        case 5:
-            res = focus_on_5();
-            break;
-        default:
-            break;
+    res = detect_intersection();
+    return res;
+}
+function detect_intersection(){
+    res = "";
+    if (interest_plane.userData.obb.intersectsOBB(plane1.userData.obb) && plane1 !== interest_plane){
+        res = "1";
+    }
+    if (interest_plane.userData.obb.intersectsOBB(plane2.userData.obb) && plane2 !== interest_plane){
+        res += " 2";
+    }
+    if (interest_plane.userData.obb.intersectsOBB(plane3.userData.obb) && plane3 !== interest_plane){
+        res += " 3";
+    }
+    if (interest_plane.userData.obb.intersectsOBB(plane4.userData.obb) && plane4 !== interest_plane){
+        res += " 4";
+    }
+    if (interest_plane.userData.obb.intersectsOBB(plane5.userData.obb) && plane5 !== interest_plane){
+        res += " 5";
     }
     
     return res;
-
 }
-function focus_on_1(){
-    // res = "poti comuta pe axa ";
-     if (plane1.userData.obb.intersectsOBB(plane2.userData.obb)){ // 1-2
-         res += " 2";
-     }
-     if (plane1.userData.obb.intersectsOBB(plane3.userData.obb)){ // 1-3
-         res += " 3";
-     }
-     if (plane1.userData.obb.intersectsOBB(plane4.userData.obb)){ // 1-4
-         res += " 4";
-     }
-     if (plane1.userData.obb.intersectsOBB(plane5.userData.obb)){ // 1-5
-         res += " 5.";    
-     }
-     return res;
- }
- 
- function focus_on_2(){
-     //res = "poti comuta pe axa ";
-     if (plane2.userData.obb.intersectsOBB(plane1.userData.obb)){ // 2-1
-         res += " 1";
-     }
-     if (plane2.userData.obb.intersectsOBB(plane3.userData.obb)){ // 2-3
-         res += " 3";
-     }
-     if (plane2.userData.obb.intersectsOBB(plane4.userData.obb)){ // 2-4
-         res += " 4";
-     }
-     if (plane2.userData.obb.intersectsOBB(plane5.userData.obb)){ // 2-5
-         res += " 5.";    
-     }
-     return res;
- }
- function focus_on_3(){
-     //res = "poti comuta pe axa ";
-     if (plane3.userData.obb.intersectsOBB(plane1.userData.obb)){ // 3-1
-         res += " 1";
-     }
-     if (plane3.userData.obb.intersectsOBB(plane2.userData.obb)){ // 3-2
-         res += " 2";
-     }
-     if (plane3.userData.obb.intersectsOBB(plane4.userData.obb)){ // 3-4
-         res += " 4";
-     }
-     if (plane3.userData.obb.intersectsOBB(plane5.userData.obb)){ // 3-5
-         res += " 5.";    
-     }
-     return res;
- }
- function focus_on_4(){
-     //res = "poti comuta pe axa ";
-     if (plane4.userData.obb.intersectsOBB(plane1.userData.obb)){ // 4-1
-         res += " 1";
-     }
-     if (plane4.userData.obb.intersectsOBB(plane2.userData.obb)){ // 4-2
-         res += " 2";
-     }
-     if (plane4.userData.obb.intersectsOBB(plane3.userData.obb)){ // 4-3
-         res += " 3";
-     }
-     if (plane4.userData.obb.intersectsOBB(plane5.userData.obb)){ // 3-5
-         res += " 5.";    
-     }
-     return res;
- }
- function focus_on_5(){
-     //res = "poti comuta pe axa ";
-     if (plane5.userData.obb.intersectsOBB(plane1.userData.obb)){ // 5-1
-         res += " 1";
-     }
-     if (plane5.userData.obb.intersectsOBB(plane2.userData.obb)){ // 5-2
-         res += " 2";
-     }
-     if (plane5.userData.obb.intersectsOBB(plane3.userData.obb)){ // 5-3
-         res += " 3";
-     }
-     if (plane5.userData.obb.intersectsOBB(plane5.userData.obb)){ // 5-4
-         res += " 4.";    
-     }
-     return res;
- }
+
 const tick = () =>
 {
 
@@ -323,9 +243,9 @@ const tick = () =>
 
     // check intersections
     res = check_intersections();
-
+    
     // user hax to choose, but for now, just log it
-    if (res != "")
+    if (res!== "")
         console.log(res);
 }
 tick()
