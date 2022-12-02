@@ -20,6 +20,12 @@ const scene = new THREE.Scene()
 let focus = 1;
 let res = "";
 
+let speed1 = 0.21;
+let speed2= 0.4;
+let speed3 = 0.1;
+let speed4 = 0.34;
+let speed5 = 0.39;
+let focus_speed = speed1;
 
 const pointLight = new THREE.PointLight(0xffffff, 0.1)
 pointLight.position.x = 2
@@ -149,6 +155,7 @@ function mark_focus_on_red(){
             plane4.material.color.set(0xffff00);
             plane5.material.color.set(0xffff00);
             interest_plane = plane1;
+            focus_speed = speed1;
             break;
         case 2:
             plane1.material.color.set(0xffff00); 
@@ -157,6 +164,7 @@ function mark_focus_on_red(){
             plane4.material.color.set(0xffff00);
             plane5.material.color.set(0xffff00);
             interest_plane = plane2;
+            focus_speed = speed2;
             break;
         case 3:
             plane1.material.color.set(0xffff00); 
@@ -165,6 +173,7 @@ function mark_focus_on_red(){
             plane4.material.color.set(0xffff00);
             plane5.material.color.set(0xffff00);
             interest_plane = plane3;
+            focus_speed = speed3;
             break;
         case 4:
             plane1.material.color.set(0xffff00); 
@@ -173,6 +182,7 @@ function mark_focus_on_red(){
             plane4.material.color.set(0xff0000);// red
             plane5.material.color.set(0xffff00);
             interest_plane = plane4;
+            focus_speed = speed4;
             break;
         case 5:
             plane1.material.color.set(0xffff00); 
@@ -181,6 +191,7 @@ function mark_focus_on_red(){
             plane4.material.color.set(0xffff00);
             plane5.material.color.set(0xff0000);// red
             interest_plane = plane5;
+            focus_speed = speed5;
             break;
         default:
             break;
@@ -229,11 +240,11 @@ const tick = () =>
     const elapsedTime = clock.getElapsedTime()
 
     // Update objects
-    plane1.rotation.z = .21 * elapsedTime
-    plane2.rotation.z = .4 * elapsedTime
-    plane3.rotation.z = .1 * elapsedTime
-    plane4.rotation.z = .34 * elapsedTime
-    plane5.rotation.z = .39 * elapsedTime
+    plane1.rotation.z = speed1 * elapsedTime
+    plane2.rotation.z = speed2 * elapsedTime
+    plane3.rotation.z = speed3 * elapsedTime
+    plane4.rotation.z = speed4 * elapsedTime
+    plane5.rotation.z = speed5 * elapsedTime
 
     // Render
     renderer.render(scene, camera)
@@ -262,7 +273,6 @@ document.onkeydown = function(e) {
     if (e.keyCode == 40){ // down arrow
 		interest_plane.position.y -=0.01;
 	}
-
     // these will be eliminated, because the focus will be received from
     // websockets, based on the text sent to it;
     if (e.keyCode == 49){ // tasta 1
@@ -279,6 +289,40 @@ document.onkeydown = function(e) {
     }
     if (e.keyCode == 53){ // tasta 5
         focus = 5;
+    }
+    if (e.keyCode === 73) // litera i
+    {
+        focus_speed += 0.1;
+        switch(focus){
+            case 1:
+                speed1 = focus_speed; break;
+            case 2:
+                speed2 = focus_speed; break;
+            case 3:
+                speed3 = focus_speed; break;
+            case 4:
+                speed4 = focus_speed; break;
+            case 5:
+                speed5 = focus_speed; break;
+            default: break;
+        }
+    }
+    if (e.keyCode ===68) // litera d
+    {
+        focus_speed -=0.1;
+        switch(focus){
+            case 1:
+                speed1 = focus_speed; break;
+            case 2:
+                speed2 = focus_speed; break;
+            case 3:
+                speed3 = focus_speed; break;
+            case 4:
+                speed4 = focus_speed; break;
+            case 5:
+                speed5 = focus_speed; break;
+            default: break;
+        }
     }
 }
 
