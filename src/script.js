@@ -96,11 +96,11 @@ const scene = new THREE.Scene()
 let focus = 1;
 let res = "";
 
-let speed1 = 0.21;
-let speed2= 0.4;
-let speed3 = 0.1;
-let speed4 = 0.34;
-let speed5 = 0.39;
+let speed1 = -0.04;
+let speed2= 0.04;
+let speed3 = -0.04;
+let speed4 = 0.04;
+let speed5 = -0.04;
 let focus_speed = speed1;
 
 const pointLight = new THREE.PointLight(0xffffff, 0.1)
@@ -117,8 +117,8 @@ const material1 = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.Dou
 const plane1 = new THREE.Mesh( geometry1, material1);
 plane1.userData.obb = new OBB_1.OBB();
 plane1.geometry.userData.obb = new OBB_1.OBB().fromBox3(plane1.geometry.boundingBox);
-plane1.position.x = -1.95;
-plane1.position.y = 1.2;
+plane1.position.x = -1.55;
+plane1.position.y = 1.15;
 scene.add( plane1 );
 
 let interest_plane = plane1;
@@ -130,8 +130,8 @@ const material2 = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.Dou
 const plane2 = new THREE.Mesh( geometry2, material2 );
 plane2.userData.obb = new OBB_1.OBB();
 plane2.geometry.userData.obb = new OBB_1.OBB().fromBox3(plane2.geometry.boundingBox);
-plane2.position.x = -1.5;
-plane2.position.y = .1;
+plane2.position.x = -1.01;
+plane2.position.y = .5;
 scene.add( plane2 );
 
 // axa 3
@@ -153,7 +153,7 @@ const plane4 = new THREE.Mesh( geometry4, material4 );
 plane4.userData.obb = new OBB_1.OBB();
 plane4.geometry.userData.obb = new OBB_1.OBB().fromBox3(plane4.geometry.boundingBox);
 plane4.position.x = 0.95;
-plane4.position.y = -0.7;
+plane4.position.y = 0.1;
 scene.add( plane4 );
 
 // axa 5
@@ -163,7 +163,7 @@ const material5 = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.Dou
 const plane5 = new THREE.Mesh( geometry5, material5 );
 plane5.userData.obb = new OBB_1.OBB();
 plane5.geometry.userData.obb = new OBB_1.OBB().fromBox3(plane5.geometry.boundingBox);
-plane5.position.x = 1.99;
+plane5.position.x = 1.95;
 plane5.position.y = 0.3;
 scene.add( plane5 );
 
@@ -273,7 +273,7 @@ function mark_focus_on_red(){
             break;
     }
 }
-setInterval(mark_focus_on_red, 1);
+setInterval(mark_focus_on_red, 0.1);
 
 function check_intersections(){
     plane1.userData.obb.copy(plane1.geometry.userData.obb);
@@ -321,6 +321,7 @@ const tick = () =>
     plane3.rotation.z = speed3 * elapsedTime
     plane4.rotation.z = speed4 * elapsedTime
     plane5.rotation.z = speed5 * elapsedTime
+   // console.log(speed4*elapsedTime)
 
     // Render
     renderer.render(scene, camera)
