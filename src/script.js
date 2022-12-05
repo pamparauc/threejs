@@ -261,7 +261,7 @@ function detect_intersection(){
 			client.send("3");
 			console.log(3);
 			p3_on = true;
-			p2_off = false;
+			p3_off = false;
 		}
     }
     if (interest_plane.userData.obb.intersectsOBB(plane4.userData.obb) && plane4 !== interest_plane){
