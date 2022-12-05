@@ -7,80 +7,18 @@ var stats_module_1 = require("three/examples/jsm/libs/stats.module");
 var OBB_1 = require("three/examples/jsm/math/OBB");
 
 
-
-
-
-
-
-
-
-
-
-
-
-// Import express, expressWs, and http
-// import express from 'express'
-// import expressWs from 'express-ws'
-// import http from 'http'
-// // Our port
-// let port = 8090;
-
-// // App and server
-// let app = express();
-// let server = http.createServer(app).listen(port);   
-// // Apply expressWs
-// expressWs(app, server);
-// // Get the route / 
-// app.get('/', (req, res) => {
-//     res.status(200).send("Welcome to our app");
-// });
-
-// // This lets the server pick up the '/ws' WebSocket route
-// app.ws('/ws', async function(ws, req) {
-//     // After which we wait for a message and respond to it
-//     ws.on('message', async function(msg) {
-//         // If a message occurs, we'll console log it on the server
-//         console.log(msg);
-//         // Start listening for messages
-//     });
-// });
-
 const WebSocketServer = require('websocket');
-var client = new WebSocket("ws://192.168.10.106:3000");
-
+var client = new WebSocket("ws://192.168.10.1:8081");
+let websocket_is_active = false;
 client.addEventListener("open", () =>{
     console.log("We are connected");
-    client.send("How are you?");
+	websocket_is_active = true;
+    //client.send("How are you?");
   });
    
 client.addEventListener('message', function (event) {
       console.log(event.data);
   });
-
-
-
-// Creating a new websocket server
-// const wss = new WebSocket({
-//     port: 8090,
-//   });
-
-// // Creating connection using websocket
-// wss.on("connection", ws => {
-//     console.log("new client connected");
-//     // sending message
-//     ws.on("message", data => {
-//         console.log(`Client has sent us: ${data}`)
-//     });
-//     // handling what to do when clients disconnects from server
-//     ws.on("close", () => {
-//         console.log("the client has connected");
-//     });
-//     // handling client connection error
-//     ws.onerror = function () {
-//         console.log("Some Error occurred")
-//     }
-// });
-// console.log("The WebSocket server is running on port 8090");
 
 // Debug
 const gui = new dat.GUI()
@@ -100,7 +38,17 @@ let speed1 = -0.04;
 let speed2= 0.04;
 let speed3 = -0.04;
 let speed4 = 0.04;
-let speed5 = -0.04;
+
+let p1_on = false;
+let p2_on = false;
+let p3_on = false;
+let p4_on = false;
+let p1_off = false;
+let p2_off = false;
+let p3_off = false;
+let p4_off = false;
+
+//let speed5 = -0.04;
 let focus_speed = speed1;
 
 const pointLight = new THREE.PointLight(0xffffff, 0.1)
@@ -157,7 +105,7 @@ plane4.position.y = 0.1;
 scene.add( plane4 );
 
 // axa 5
-const geometry5 = new THREE.PlaneGeometry( 2, 0.01 );
+/*const geometry5 = new THREE.PlaneGeometry( 2, 0.01 );
 geometry5.computeBoundingBox();
 const material5 = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
 const plane5 = new THREE.Mesh( geometry5, material5 );
@@ -165,7 +113,7 @@ plane5.userData.obb = new OBB_1.OBB();
 plane5.geometry.userData.obb = new OBB_1.OBB().fromBox3(plane5.geometry.boundingBox);
 plane5.position.x = 1.95;
 plane5.position.y = 0.3;
-scene.add( plane5 );
+scene.add( plane5 );*/
 
 
 /**
@@ -229,7 +177,7 @@ function mark_focus_on_red(){
             plane2.material.color.set(0xffff00);
             plane3.material.color.set(0xffff00);
             plane4.material.color.set(0xffff00);
-            plane5.material.color.set(0xffff00);
+            //plane5.material.color.set(0xffff00);
             interest_plane = plane1;
             focus_speed = speed1;
             break;
@@ -238,7 +186,7 @@ function mark_focus_on_red(){
             plane2.material.color.set(0xff0000);// red
             plane3.material.color.set(0xffff00);
             plane4.material.color.set(0xffff00);
-            plane5.material.color.set(0xffff00);
+            //plane5.material.color.set(0xffff00);
             interest_plane = plane2;
             focus_speed = speed2;
             break;
@@ -247,7 +195,7 @@ function mark_focus_on_red(){
             plane2.material.color.set(0xffff00);
             plane3.material.color.set(0xff0000);// red
             plane4.material.color.set(0xffff00);
-            plane5.material.color.set(0xffff00);
+            //plane5.material.color.set(0xffff00);
             interest_plane = plane3;
             focus_speed = speed3;
             break;
@@ -256,58 +204,115 @@ function mark_focus_on_red(){
             plane2.material.color.set(0xffff00);
             plane3.material.color.set(0xffff00);
             plane4.material.color.set(0xff0000);// red
-            plane5.material.color.set(0xffff00);
+            //plane5.material.color.set(0xffff00);
             interest_plane = plane4;
             focus_speed = speed4;
             break;
-        case 5:
-            plane1.material.color.set(0xffff00); 
-            plane2.material.color.set(0xffff00);
-            plane3.material.color.set(0xffff00);
-            plane4.material.color.set(0xffff00);
-            plane5.material.color.set(0xff0000);// red
-            interest_plane = plane5;
-            focus_speed = speed5;
-            break;
+        //case 5:
+           // plane1.material.color.set(0xffff00); 
+           // plane2.material.color.set(0xffff00);
+            //plane3.material.color.set(0xffff00);
+           // plane4.material.color.set(0xffff00);
+            //plane5.material.color.set(0xff0000);// red
+            //interest_plane = plane5;
+            //focus_speed = speed5;
+           // break;
         default:
             break;
     }
 }
 setInterval(mark_focus_on_red, 0.1);
-
+let is_intersect = false;
 function check_intersections(){
     plane1.userData.obb.copy(plane1.geometry.userData.obb);
     plane2.userData.obb.copy(plane2.geometry.userData.obb);
     plane3.userData.obb.copy(plane3.geometry.userData.obb);
     plane4.userData.obb.copy(plane4.geometry.userData.obb);
-    plane5.userData.obb.copy(plane5.geometry.userData.obb);
+    //plane5.userData.obb.copy(plane5.geometry.userData.obb);
     plane1.userData.obb.applyMatrix4(plane1.matrixWorld);
     plane2.userData.obb.applyMatrix4(plane2.matrixWorld);
     plane3.userData.obb.applyMatrix4(plane3.matrixWorld);
     plane4.userData.obb.applyMatrix4(plane4.matrixWorld);
-    plane5.userData.obb.applyMatrix4(plane5.matrixWorld);
-    res = detect_intersection();
-    return res;
+    //plane5.userData.obb.applyMatrix4(plane5.matrixWorld);
+    detect_intersection();
+    //return res;
 }
 function detect_intersection(){
-    res = "";
+	if (websocket_is_active == false)
+		return;
     if (interest_plane.userData.obb.intersectsOBB(plane1.userData.obb) && plane1 !== interest_plane){
-        res = "1";
+		if (p1_on == false) {
+			client.send("1");
+			console.log(1);
+			p1_on = true;
+			p1_off = false;
+		}
     }
     if (interest_plane.userData.obb.intersectsOBB(plane2.userData.obb) && plane2 !== interest_plane){
-        res += " 2";
+        if (p2_on == false) {
+			client.send("2");
+			console.log(2);
+			p2_on = true;
+			p2_off = false;
+		}
     }
     if (interest_plane.userData.obb.intersectsOBB(plane3.userData.obb) && plane3 !== interest_plane){
-        res += " 3";
+        if (p3_on == false) {
+			client.send("3");
+			console.log(3);
+			p3_on = true;
+			p2_off = false;
+		}
     }
     if (interest_plane.userData.obb.intersectsOBB(plane4.userData.obb) && plane4 !== interest_plane){
-        res += " 4";
+        if (p4_on == false) {
+			client.send("4");
+			console.log(4);
+			p4_on = true;
+			p4_off = false;
+		}
     }
-    if (interest_plane.userData.obb.intersectsOBB(plane5.userData.obb) && plane5 !== interest_plane){
-        res += " 5";
+	
+	
+	
+	if (!(interest_plane.userData.obb.intersectsOBB(plane1.userData.obb) && plane1 !== interest_plane)){
+		if (p1_off == false && p1_on == true)
+		{
+			client.send("-1");
+			console.log("-1");
+			p1_off = true;
+		}
+		p1_on = false;
     }
-    
-    return res;
+    if (!(interest_plane.userData.obb.intersectsOBB(plane2.userData.obb) && plane2 !== interest_plane)){
+        if (p2_off == false && p2_on == true)
+		{
+			client.send("-2");
+			console.log("-2");
+			p2_off = true;
+		}
+		p2_on = false;
+    }
+    if (!(interest_plane.userData.obb.intersectsOBB(plane3.userData.obb) && plane3 !== interest_plane)){
+        if (p3_off == false && p3_on == true)
+		{
+			client.send("-3");
+			console.log("-3");
+			p3_off = true;
+		}
+		p3_on = false;
+    }
+    if (!(interest_plane.userData.obb.intersectsOBB(plane4.userData.obb) && plane4 !== interest_plane)){
+        if (p4_off == false && p4_on == true)
+		{
+			client.send("-4");
+			console.log("-4");
+			p4_off = true;
+		}
+		p4_on = false;
+    }
+
+	
 }
 
 const tick = () =>
@@ -320,7 +325,7 @@ const tick = () =>
     plane2.rotation.z = speed2 * elapsedTime
     plane3.rotation.z = speed3 * elapsedTime
     plane4.rotation.z = speed4 * elapsedTime
-    plane5.rotation.z = speed5 * elapsedTime
+    //plane5.rotation.z = speed5 * elapsedTime
    // console.log(speed4*elapsedTime)
 
     // Render
@@ -330,13 +335,14 @@ const tick = () =>
     window.requestAnimationFrame(tick)
 
     // check intersections
-    res = check_intersections();
+    //res = 
+	check_intersections();
     
     // user hax to choose, but for now, just log it
-    if (res!== ""){
-        console.log(res);
-        client.send(res);
-    }
+    //if (res!== ""){
+        //console.log(res);
+        
+    //}
 }
 tick()
 document.onkeydown = function(e) {
@@ -381,8 +387,8 @@ document.onkeydown = function(e) {
                 speed3 = focus_speed; break;
             case 4:
                 speed4 = focus_speed; break;
-            case 5:
-                speed5 = focus_speed; break;
+            //case 5:
+                //speed5 = focus_speed; break;
             default: break;
         }
     }
@@ -398,8 +404,8 @@ document.onkeydown = function(e) {
                 speed3 = focus_speed; break;
             case 4:
                 speed4 = focus_speed; break;
-            case 5:
-                speed5 = focus_speed; break;
+            //case 5:
+                //speed5 = focus_speed; break;
             default: break;
         }
     }
